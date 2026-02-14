@@ -6,3 +6,430 @@ available in the app when your plugin is enabled.
 If your plugin does not need CSS, delete this file.
 
 */
+
+/* Lonelog Auto-completion Suggestions */
+
+.lonelog-suggestion {
+	padding: 8px 12px;
+	cursor: pointer;
+}
+
+.lonelog-suggestion-name {
+	font-weight: 600;
+	font-size: 14px;
+	color: var(--text-normal);
+	margin-bottom: 2px;
+}
+
+.lonelog-suggestion-tags {
+	font-size: 11px;
+	color: var(--text-muted);
+	font-style: italic;
+	margin-bottom: 2px;
+}
+
+.lonelog-suggestion-type {
+	font-size: 9px;
+	color: var(--text-faint);
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	font-weight: 500;
+}
+
+.suggestion-item.is-selected .lonelog-suggestion-name {
+	color: var(--text-on-accent);
+}
+
+.suggestion-item.is-selected .lonelog-suggestion-tags,
+.suggestion-item.is-selected .lonelog-suggestion-type {
+	color: var(--text-on-accent);
+	opacity: 0.8;
+}
+
+/* Common Panel Styles */
+
+.lonelog-empty-state {
+	padding: 20px;
+	text-align: center;
+	color: var(--text-muted);
+	font-size: 13px;
+}
+
+.lonelog-count {
+	font-size: 11px;
+	color: var(--text-muted);
+	margin-left: 8px;
+}
+
+/* Progress Tracker Panel */
+
+.lonelog-progress-container {
+	padding: 16px;
+}
+
+.lonelog-progress-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 16px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.lonelog-progress-header h4 {
+	margin: 0;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.lonelog-progress-section {
+	margin-bottom: 20px;
+}
+
+.lonelog-progress-section h5 {
+	margin: 0 0 8px 0;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	color: var(--text-muted);
+	font-weight: 600;
+}
+
+.lonelog-progress-item {
+	background: var(--background-secondary);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 6px;
+	padding: 10px;
+	margin-bottom: 8px;
+}
+
+.lonelog-progress-name-row {
+	margin-bottom: 8px;
+}
+
+.lonelog-progress-name {
+	background: none;
+	border: none;
+	color: var(--text-normal);
+	font-weight: 500;
+	font-size: 14px;
+	cursor: pointer;
+	padding: 0;
+	text-align: left;
+}
+
+.lonelog-progress-name:hover {
+	color: var(--text-accent);
+}
+
+.lonelog-progress-controls {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.lonelog-progress-btn {
+	background: var(--interactive-normal);
+	border: none;
+	color: var(--text-normal);
+	width: 24px;
+	height: 24px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+}
+
+.lonelog-progress-btn:hover {
+	background: var(--interactive-hover);
+}
+
+.lonelog-progress-text {
+	font-family: var(--font-monospace);
+	font-size: 12px;
+	min-width: 50px;
+	text-align: center;
+}
+
+.lonelog-progress-bar {
+	flex: 1;
+	height: 8px;
+	background: var(--background-modifier-border);
+	border-radius: 4px;
+	overflow: hidden;
+}
+
+.lonelog-progress-fill {
+	height: 100%;
+	background: var(--interactive-accent);
+	transition: width 0.3s ease;
+}
+
+/* Thread Browser Panel */
+
+.lonelog-thread-container {
+	padding: 16px;
+}
+
+.lonelog-thread-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 16px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.lonelog-thread-header h4 {
+	margin: 0;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.lonelog-thread-section {
+	margin-bottom: 20px;
+}
+
+.lonelog-thread-section-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 8px;
+}
+
+.lonelog-thread-section-header h5 {
+	margin: 0;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	color: var(--text-muted);
+	font-weight: 600;
+}
+
+.lonelog-section-count {
+	font-size: 11px;
+	color: var(--text-faint);
+	background: var(--background-secondary);
+	padding: 2px 8px;
+	border-radius: 10px;
+}
+
+.lonelog-thread-list {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.lonelog-thread-item {
+	background: var(--background-secondary);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 6px;
+	padding: 8px 10px;
+}
+
+.lonelog-thread-item-name-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 4px;
+}
+
+.lonelog-thread-item-name {
+	background: none;
+	border: none;
+	color: var(--text-normal);
+	font-weight: 500;
+	font-size: 13px;
+	cursor: pointer;
+	padding: 0;
+	text-align: left;
+	flex: 1;
+}
+
+.lonelog-thread-item-name:hover {
+	color: var(--text-accent);
+}
+
+.lonelog-mention-count {
+	font-size: 11px;
+	color: var(--text-muted);
+	background: var(--background-modifier-border);
+	padding: 2px 6px;
+	border-radius: 8px;
+	margin-left: 8px;
+}
+
+.lonelog-thread-item-tags {
+	font-size: 11px;
+	color: var(--text-muted);
+	font-style: italic;
+	margin-bottom: 4px;
+}
+
+.lonelog-thread-state {
+	font-size: 10px;
+	padding: 2px 8px;
+	border-radius: 10px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	font-weight: 500;
+}
+
+.lonelog-thread-state-open {
+	background: var(--color-green);
+	color: white;
+}
+
+.lonelog-thread-state-closed {
+	background: var(--color-red);
+	color: white;
+}
+
+.lonelog-thread-state-resolved {
+	background: var(--color-blue);
+	color: white;
+}
+
+.lonelog-mentions-nav {
+	display: flex;
+	gap: 4px;
+	margin-top: 6px;
+	flex-wrap: wrap;
+}
+
+.lonelog-mention-btn {
+	background: var(--background-modifier-border);
+	border: none;
+	color: var(--text-muted);
+	font-size: 10px;
+	padding: 2px 6px;
+	border-radius: 4px;
+	cursor: pointer;
+	min-width: 20px;
+}
+
+.lonelog-mention-btn:hover {
+	background: var(--interactive-hover);
+	color: var(--text-normal);
+}
+
+/* Scene Navigator Panel */
+
+.lonelog-scene-container {
+	padding: 16px;
+}
+
+.lonelog-scene-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 16px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.lonelog-scene-header h4 {
+	margin: 0;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.lonelog-scene-session {
+	margin-bottom: 16px;
+	background: var(--background-secondary);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.lonelog-scene-session-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 12px;
+	background: var(--background-modifier-border);
+}
+
+.lonelog-scene-session-btn {
+	background: none;
+	border: none;
+	color: var(--text-normal);
+	cursor: pointer;
+	padding: 0;
+	text-align: left;
+	flex: 1;
+}
+
+.lonelog-scene-session-btn:hover {
+	color: var(--text-accent);
+}
+
+.lonelog-scene-session-title {
+	font-size: 13px;
+}
+
+.lonelog-scene-date {
+	color: var(--text-muted);
+	font-weight: normal;
+}
+
+.lonelog-scene-count {
+	font-size: 11px;
+	color: var(--text-muted);
+}
+
+.lonelog-scene-list {
+	padding: 8px;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.lonelog-scene-empty {
+	padding: 12px;
+	text-align: center;
+	color: var(--text-muted);
+	font-size: 12px;
+	font-style: italic;
+}
+
+.lonelog-scene-item {
+	padding: 0;
+}
+
+.lonelog-scene-btn {
+	background: var(--background-primary);
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 4px;
+	color: var(--text-normal);
+	cursor: pointer;
+	padding: 6px 10px;
+	text-align: left;
+	width: 100%;
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+
+.lonelog-scene-btn:hover {
+	background: var(--background-secondary);
+	border-color: var(--interactive-accent);
+}
+
+.lonelog-scene-number {
+	font-family: var(--font-monospace);
+	font-size: 11px;
+	font-weight: 600;
+	color: var(--text-accent);
+	min-width: 30px;
+}
+
+.lonelog-scene-context {
+	font-size: 12px;
+	flex: 1;
+}
+
+

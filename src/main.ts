@@ -1,99 +1,269 @@
-import {App, Editor, MarkdownView, Modal, Notice, Plugin} from 'obsidian';
-import {DEFAULT_SETTINGS, MyPluginSettings, SampleSettingTab} from "./settings";
+import { Plugin } from "obsidian";
+import { DEFAULT_SETTINGS, LonelogSettings, LonelogSettingTab } from "./settings";
+import { NotationCommands } from "./commands/notation";
+import { TemplateCommands } from "./commands/templates";
+import { LonelogAutoComplete } from "./utils/autocomplete";
+import { ProgressTrackerView, PROGRESS_VIEW_TYPE } from "./ui/progress-view";
+import { ThreadBrowserView, THREAD_VIEW_TYPE } from "./ui/thread-view";
+import { SceneNavigatorView, SCENE_NAV_TYPE } from "./ui/scene-nav";
 
-// Remember to rename these classes and interfaces!
-
-export default class MyPlugin extends Plugin {
-	settings: MyPluginSettings;
+export default class LonelogPlugin extends Plugin {
+	settings: LonelogSettings;
+	autoComplete: LonelogAutoComplete;
 
 	async onload() {
+		console.log("Loading Lonelog plugin");
+
 		await this.loadSettings();
 
-		// This creates an icon in the left ribbon.
-		this.addRibbonIcon('dice', 'Sample', (evt: MouseEvent) => {
-			// Called when the user clicks the icon.
-			new Notice('This is a notice!');
-		});
+		// Register views
+		this.registerView(
+			PROGRESS_VIEW_TYPE,
+			(leaf) => new ProgressTrackerView(leaf)
+		);
+		this.registerView(
+			THREAD_VIEW_TYPE,
+			(leaf) => new ThreadBrowserView(leaf)
+		);
+		this.registerView(
+			SCENE_NAV_TYPE,
+			(leaf) => new SceneNavigatorView(leaf)
+		);
 
-		// This adds a status bar item to the bottom of the app. Does not work on mobile apps.
-		const statusBarItemEl = this.addStatusBarItem();
-		statusBarItemEl.setText('Status bar text');
+		// Detach all views
+		this.app.workspace.detachLeavesOfType(PROGRESS_VIEW_TYPE);
+		this.app.workspace.detachLeavesOfType(THREAD_VIEW_TYPE);
+		this.app.workspace.detachLeavesOfType(SCENE_NAV_TYPE);
 
-		// This adds a simple command that can be triggered anywhere
-		this.addCommand({
-			id: 'open-modal-simple',
-			name: 'Open modal (simple)',
-			callback: () => {
-				new SampleModal(this.app).open();
-			}
-		});
-		// This adds an editor command that can perform some operation on the current editor instance
-		this.addCommand({
-			id: 'replace-selected',
-			name: 'Replace selected content',
-			editorCallback: (editor: Editor, view: MarkdownView) => {
-				editor.replaceSelection('Sample editor command');
-			}
-		});
-		// This adds a complex command that can check whether the current state of the app allows execution of the command
-		this.addCommand({
-			id: 'open-modal-complex',
-			name: 'Open modal (complex)',
-			checkCallback: (checking: boolean) => {
-				// Conditions to check
-				const markdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
-				if (markdownView) {
-					// If checking is true, we're simply "checking" if the command can be run.
-					// If checking is false, then we want to actually perform the operation.
-					if (!checking) {
-						new SampleModal(this.app).open();
-					}
+		// Register auto-completion
+		this.autoComplete = new LonelogAutoComplete(this.app);
+		this.registerEditorSuggest(this.autoComplete);
 
-					// This command will only show up in Command Palette when the check function returns true
-					return true;
-				}
-				return false;
-			}
-		});
+		// Register all commands
+		this.registerCommands();
 
-		// This adds a settings tab so the user can configure various aspects of the plugin
-		this.addSettingTab(new SampleSettingTab(this.app, this));
-
-		// If the plugin hooks up any global DOM events (on parts of the app that doesn't belong to this plugin)
-		// Using this function will automatically remove the event listener when this plugin is disabled.
-		this.registerDomEvent(document, 'click', (evt: MouseEvent) => {
-			new Notice("Click");
-		});
-
-		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
-		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
-
+		// Add settings tab
+		this.addSettingTab(new LonelogSettingTab(this.app, this));
 	}
 
 	onunload() {
+		console.log("Unloading Lonelog plugin");
 	}
 
 	async loadSettings() {
-		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData() as Partial<MyPluginSettings>);
+		this.settings = Object.assign(
+			{},
+			DEFAULT_SETTINGS,
+			await this.loadData()
+		);
 	}
 
 	async saveSettings() {
 		await this.saveData(this.settings);
 	}
-}
 
-class SampleModal extends Modal {
-	constructor(app: App) {
-		super(app);
+	registerCommands(): void {
+		// Single symbol commands
+		this.addCommand({
+			id: "insert-action",
+			name: "Insert action (@)",
+			editorCallback: (editor) => {
+				NotationCommands.insertAction(editor, this.settings);
+			},
+		});
+
+		this.addCommand({
+			id: "insert-question",
+			name: "Insert question (?)",
+			editorCallback: (editor) => {
+				NotationCommands.insertQuestion(editor, this.settings);
+			},
+		});
+
+		this.addCommand({
+			id: "insert-dice-roll",
+			name: "Insert dice roll (d:)",
+			editorCallback: (editor) => {
+				NotationCommands.insertDiceRoll(editor, this.settings);
+			},
+		});
+
+		this.addCommand({
+			id: "insert-result",
+			name: "Insert result (->)",
+			editorCallback: (editor) => {
+				NotationCommands.insertResult(editor, this.settings);
+			},
+		});
+
+		this.addCommand({
+			id: "insert-consequence",
+			name: "Insert consequence (=>)",
+			editorCallback: (editor) => {
+				NotationCommands.insertConsequence(editor, this.settings);
+			},
+		});
+
+		// Multi-line pattern commands
+		this.addCommand({
+			id: "insert-action-sequence",
+			name: "Insert action sequence",
+			editorCallback: (editor) => {
+				NotationCommands.insertActionSequence(editor, this.settings);
+			},
+		});
+
+		this.addCommand({
+			id: "insert-oracle-sequence",
+			name: "Insert oracle sequence",
+			editorCallback: (editor) => {
+				NotationCommands.insertOracleSequence(editor, this.settings);
+			},
+		});
+
+		// Tag snippet commands
+		this.addCommand({
+			id: "insert-npc-tag",
+			name: "Insert NPC tag",
+			editorCallback: (editor) => {
+				NotationCommands.insertNPCTag(editor, this.settings);
+			},
+		});
+
+		this.addCommand({
+			id: "insert-location-tag",
+			name: "Insert location tag",
+			editorCallback: (editor) => {
+				NotationCommands.insertLocationTag(editor, this.settings);
+			},
+		});
+
+		this.addCommand({
+			id: "insert-event-clock",
+			name: "Insert event/clock",
+			editorCallback: (editor) => {
+				NotationCommands.insertEventClock(editor, this.settings);
+			},
+		});
+
+		this.addCommand({
+			id: "insert-track",
+			name: "Insert track",
+			editorCallback: (editor) => {
+				NotationCommands.insertTrack(editor, this.settings);
+			},
+		});
+
+		this.addCommand({
+			id: "insert-thread",
+			name: "Insert thread",
+			editorCallback: (editor) => {
+				NotationCommands.insertThread(editor, this.settings);
+			},
+		});
+
+		this.addCommand({
+			id: "insert-pc-tag",
+			name: "Insert PC tag",
+			editorCallback: (editor) => {
+				NotationCommands.insertPCTag(editor, this.settings);
+			},
+		});
+
+		this.addCommand({
+			id: "insert-timer",
+			name: "Insert timer",
+			editorCallback: (editor) => {
+				NotationCommands.insertTimer(editor, this.settings);
+			},
+		});
+
+		this.addCommand({
+			id: "insert-reference",
+			name: "Insert reference tag (#N:)",
+			editorCallback: (editor) => {
+				NotationCommands.insertReference(editor, this.settings);
+			},
+		});
+
+		// Phase 2: Template commands
+		this.addCommand({
+			id: "insert-campaign-header",
+			name: "Insert campaign header",
+			editorCallback: (editor) => {
+				TemplateCommands.insertCampaignHeader(this.app, editor);
+			},
+		});
+
+		this.addCommand({
+			id: "insert-session-header",
+			name: "Insert session header",
+			editorCallback: (editor) => {
+				TemplateCommands.insertSessionHeader(editor);
+			},
+		});
+
+		this.addCommand({
+			id: "insert-scene-marker",
+			name: "Insert scene marker",
+			editorCallback: (editor) => {
+				TemplateCommands.insertSceneMarker(
+					this.app,
+					editor,
+					this.settings.promptForSceneContext
+				);
+			},
+		});
+
+		this.addCommand({
+			id: "toggle-code-block",
+			name: "Toggle code block wrapper",
+			editorCallback: (editor) => {
+				TemplateCommands.toggleCodeBlock(editor);
+			},
+		});
+
+		// Panel commands
+		this.addCommand({
+			id: "open-progress-tracker",
+			name: "Open Progress Tracker",
+			callback: () => {
+				this.activateView(PROGRESS_VIEW_TYPE);
+			},
+		});
+
+		this.addCommand({
+			id: "open-thread-browser",
+			name: "Open Thread Browser",
+			callback: () => {
+				this.activateView(THREAD_VIEW_TYPE);
+			},
+		});
+
+		this.addCommand({
+			id: "open-scene-navigator",
+			name: "Open Scene Navigator",
+			callback: () => {
+				this.activateView(SCENE_NAV_TYPE);
+			},
+		});
 	}
 
-	onOpen() {
-		let {contentEl} = this;
-		contentEl.setText('Woah!');
-	}
+	async activateView(viewType: string) {
+		const { workspace } = this.app;
 
-	onClose() {
-		const {contentEl} = this;
-		contentEl.empty();
+		let leaf = workspace.getLeavesOfType(viewType)[0];
+
+		if (!leaf) {
+			// Create new leaf in right sidebar
+			leaf = workspace.getRightLeaf(false);
+			await leaf!.setViewState({
+				type: viewType,
+				active: true,
+			});
+		}
+
+		// Reveal the leaf
+		workspace.revealLeaf(leaf);
 	}
 }
