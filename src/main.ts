@@ -6,6 +6,7 @@ import { LonelogAutoComplete } from "./utils/autocomplete";
 import { ProgressTrackerView, PROGRESS_VIEW_TYPE } from "./ui/progress-view";
 import { ThreadBrowserView, THREAD_VIEW_TYPE } from "./ui/thread-view";
 import { SceneNavigatorView, SCENE_NAV_TYPE } from "./ui/scene-nav";
+import { lonelogBlockProcessor } from "./utils/highlighter";
 
 export default class LonelogPlugin extends Plugin {
 	settings: LonelogSettings;
@@ -15,6 +16,11 @@ export default class LonelogPlugin extends Plugin {
 		console.log("Loading Lonelog plugin");
 
 		await this.loadSettings();
+
+		this.registerMarkdownCodeBlockProcessor(
+			"lonelog",
+			lonelogBlockProcessor
+		);
 
 		// Register views
 		this.registerView(
