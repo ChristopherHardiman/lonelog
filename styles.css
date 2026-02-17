@@ -436,7 +436,6 @@ If your plugin does not need CSS, delete this file.
    Lonelog Syntax Highlighting — reading mode code block
    ============================================================ */
 
-/* Block container — resets default <pre> chrome */
 .ll-block {
 	background: var(--background-primary);
 	border: 1px solid var(--background-modifier-border);
@@ -449,60 +448,40 @@ If your plugin does not need CSS, delete this file.
 	overflow-x: auto;
 }
 
-/* Each line is a block so background spans the full width */
 .ll-line {
-    display: block;
-    padding: 0 0.25em;
-    border-radius: 3px;
-    white-space: pre-wrap;   /* ← was: pre */
-    word-break: break-word;  /* optional: prevents long tags overflowing */
+	display: block;
+	padding: 0 0.25em;
+	border-radius: 3px;
+	white-space: pre-wrap;
+    word-break: break-word;
 }
 
 /* ── Line-level highlights ─────────────────────────────── */
 
-/* @ action → blue */
 .ll-line.ll-action {
-	background: rgba(59, 130, 246, 0.15);   /* blue-500 @ 15% */
-	color: var(--text-normal);
+	background: var(--ll-action-bg, rgba(59, 130, 246, 0.15));
 }
 
-/* ? question / oracle → purple */
 .ll-line.ll-question {
-	background: rgba(139, 92, 246, 0.15);   /* violet-500 @ 15% */
-	color: var(--text-normal);
+	background: var(--ll-question-bg, rgba(139, 92, 246, 0.15));
 }
 
-/* d: dice roll → green */
 .ll-line.ll-dice {
-	background: rgba(34, 197, 94, 0.15);    /* green-500 @ 15% */
-	color: var(--text-normal);
+	background: var(--ll-dice-bg, rgba(34, 197, 94, 0.15));
 }
 
-/* => consequence → red */
 .ll-line.ll-consequence {
-	background: rgba(239, 68, 68, 0.15);    /* red-500 @ 15% */
-	color: var(--text-normal);
+	background: var(--ll-consequence-bg, rgba(239, 68, 68, 0.15));
 }
 
 /* ── Token-level highlights ────────────────────────────── */
 
-/* -> result arrow → yellow */
 .ll-result {
-	color: #ca8a04;                          /* yellow-600 */
+	color: var(--ll-result-color, #ca8a04);
 	font-weight: 600;
 }
 
-/* dark theme: bump yellow brightness */
-.theme-dark .ll-result {
-	color: #fde047;                          /* yellow-300 */
-}
-
-/* [N:...] [L:...] etc. → orange */
 .ll-tag {
-	color: #c2410c;                          /* orange-700 */
+	color: var(--ll-tag-color, #c2410c);
 	font-weight: 500;
-}
-
-.theme-dark .ll-tag {
-	color: #fb923c;                          /* orange-400 */
 }

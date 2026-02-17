@@ -1,5 +1,7 @@
 import { Plugin } from "obsidian";
-import { DEFAULT_SETTINGS, LonelogSettings, LonelogSettingTab } from "./settings";
+import { 
+	DEFAULT_SETTINGS, LonelogSettings, LonelogSettingTab, applyHighlightColors, removeHighlightColors 
+} from "./settings";
 import { NotationCommands } from "./commands/notation";
 import { TemplateCommands } from "./commands/templates";
 import { LonelogAutoComplete } from "./utils/autocomplete";
@@ -21,6 +23,7 @@ export default class LonelogPlugin extends Plugin {
 			"lonelog",
 			lonelogBlockProcessor
 		);
+		applyHighlightColors(this.settings);
 
 		// Register views
 		this.registerView(
@@ -53,6 +56,7 @@ export default class LonelogPlugin extends Plugin {
 	}
 
 	onunload() {
+		removeHighlightColors();
 		console.log("Unloading Lonelog plugin");
 	}
 
