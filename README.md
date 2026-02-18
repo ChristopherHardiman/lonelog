@@ -1,8 +1,24 @@
 # Lonelog Plugin for Obsidian
 
-Streamline your solo TTRPG journaling with quick shortcuts for [Lonelog notation](https://github.com/roberto-bisceglie/lonelog) - the standard notation system for solo RPG session logging.
+Streamline your solo TTRPG journaling with quick shortcuts for [Lonelog notation](https://zeruhur.itch.io/lonelog) - the standard notation system for solo RPG session logging.
 
 ## Features
+
+### Syntax Highlighting (New in 1.0.0 ✓)
+
+Beautiful, configurable syntax highlighting for Lonelog notation in both editor and reading modes:
+
+- **Live Editor Highlighting** - Color-coded notation as you type in `lonelog` code blocks
+- **Reading Mode Highlighting** - Rendered views with full syntax coloring
+- **Customizable Colors** - Visual color picker and text input for all notation elements:
+  - Action lines (`@`) - Default blue
+  - Question lines (`?`) - Default purple
+  - Dice rolls (`d:`) - Default green
+  - Consequences (`=>`) - Default red
+  - Result arrows (`->`) - Default yellow
+  - Tags (`[N:...]`, `[Thread:...]`, etc.) - Default orange
+- **Flexible Input** - Use color picker, hex values, color names, or CSS variables
+- **Toggle Controls** - Enable/disable highlighting independently for editor and reading modes
 
 ### Phase 1: Core Notation (Implemented ✓)
 
@@ -69,8 +85,21 @@ Customize keyboard shortcuts for your most-used commands:
 
 Configure plugin behavior in Settings → Lonelog:
 
+**Core Notation:**
 - **Insert space after symbols** - Add automatic spacing after @ ? d: -> =>
 - **Smart cursor positioning** - Jump cursor to optimal edit position in tags
+
+**Templates:**
+- **Auto-increment scene numbers** - Automatically detect and increment scene numbers
+- **Prompt for scene context** - Show modal to enter scene context when inserting a scene marker
+
+**Syntax Highlighting:**
+- **Enable editor highlighting** - Toggle live preview syntax highlighting
+- **Enable reading mode highlighting** - Toggle reading view syntax highlighting
+- **Highlighting colors** - Customize colors for each notation element using:
+  - Visual color picker (click to choose from palette)
+  - Text input (hex codes like `#ff0000`, color names like `red`, rgba values, CSS variables)
+  - Reset button to restore defaults
 
 ## Examples
 
@@ -120,13 +149,13 @@ Learn more: See [lonelog.md](lonelog.md) for the full specification
 
 ## Roadmap
 
-### Phase 2: Templates & Structure (Next)
+### Phase 2: Templates & Structure (Implemented ✓)
+- ✅ Session header with auto-numbering
+- ✅ Scene marker with auto-numbering
+- ✅ Code block wrapper
 - Campaign header insertion
-- Session header with auto-numbering
-- Scene marker with auto-numbering
-- Code block wrapper
 
-### Phase 3: Intelligence Layer (Planned)
+### Phase 3: Intelligence Layer (In Progress)
 - Tag auto-completion from previous mentions
 - Reference suggestions
 - Notation parsing

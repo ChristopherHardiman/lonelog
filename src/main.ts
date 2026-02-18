@@ -20,13 +20,20 @@ export default class LonelogPlugin extends Plugin {
 
 		await this.loadSettings();
 
-		this.registerMarkdownCodeBlockProcessor(
-			"lonelog",
-			lonelogBlockProcessor
-		);
+		// Register reading mode highlighting (if enabled)
+		if (this.settings.enableReadingHighlighting) {
+			this.registerMarkdownCodeBlockProcessor(
+				"lonelog",
+				lonelogBlockProcessor
+			);
+		}
+
 		applyHighlightColors(this.settings);
-        // Add editor syntax highlighting.
-		this.registerEditorExtension(lonelogEditorPlugin);
+
+		// Register editor syntax highlighting (if enabled)
+		if (this.settings.enableEditorHighlighting) {
+			this.registerEditorExtension(lonelogEditorPlugin);
+		}
 
 		// Register views
 		this.registerView(
@@ -270,8 +277,10 @@ export default class LonelogPlugin extends Plugin {
 
 		if (!leaf) {
 			// Create new leaf in right sidebar
-			leaf = workspace.getRightLeaf(false);
-			await leaf!.setViewState({
+			const rightLeaf = workspace.getRightLeaf(false);
+			if (!rightLeaf) return;
+			leaf = rightLeaf;
+			await leaf.setViewState({
 				type: viewType,
 				active: true,
 			});

@@ -46,6 +46,38 @@ If your plugin does not need CSS, delete this file.
 	opacity: 0.8;
 }
 
+/* Lonelog Color Picker */
+
+.lonelog-color-picker-container {
+	display: inline-block;
+	margin-right: 8px;
+	vertical-align: middle;
+}
+
+.lonelog-color-picker {
+	width: 40px;
+	height: 32px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 4px;
+	cursor: pointer;
+	vertical-align: middle;
+	padding: 2px;
+}
+
+.lonelog-color-picker::-webkit-color-swatch-wrapper {
+	padding: 0;
+}
+
+.lonelog-color-picker::-webkit-color-swatch {
+	border: none;
+	border-radius: 3px;
+}
+
+.lonelog-color-picker::-moz-color-swatch {
+	border: none;
+	border-radius: 3px;
+}
+
 /* Common Panel Styles */
 
 .lonelog-empty-state {
@@ -515,22 +547,22 @@ If your plugin does not need CSS, delete this file.
 
 /* Token symbols at line start */
 .ll-ed-action {
-	color: #3b82f6;           /* blue-500 */
+	color: var(--ll-action-color, #3b82f6);
 	font-weight: 600;
 }
 
 .ll-ed-question {
-	color: #8b5cf6;           /* violet-500 */
+	color: var(--ll-question-color, #8b5cf6);
 	font-weight: 600;
 }
 
 .ll-ed-dice {
-	color: #22c55e;           /* green-500 */
+	color: var(--ll-dice-color, #22c55e);
 	font-weight: 600;
 }
 
 .ll-ed-consequence {
-	color: #ef4444;           /* red-500 */
+	color: var(--ll-consequence-color, #ef4444);
 	font-weight: 600;
 }
 
@@ -543,21 +575,4 @@ If your plugin does not need CSS, delete this file.
 .ll-ed-tag {
 	color: var(--ll-tag-color, #c2410c);
 	font-weight: 500;
-}
-
-/* Dark theme adjustments */
-.theme-dark .ll-ed-action {
-	color: #60a5fa;           /* blue-400 */
-}
-
-.theme-dark .ll-ed-question {
-	color: #a78bfa;           /* violet-400 */
-}
-
-.theme-dark .ll-ed-dice {
-	color: #4ade80;           /* green-400 */
-}
-
-.theme-dark .ll-ed-consequence {
-	color: #f87171;           /* red-400 */
 }
