@@ -170,7 +170,17 @@ Learn more: See [lonelog.md](lonelog.md) for the full specification
 
 This plugin is licensed under [0-BSD License](LICENSE).
 
-The Lonelog notation system is © 2025-2026 Roberto Bisceglie, licensed under CC BY-SA 4.0.
+The Lonelog notation system is © 2025-2026 Roberto Bisceglie, **Creative Commons Attribution-ShareAlike 4.0 International License**.
+
+**You are free to:**
+
+- Share — copy and redistribute the material
+- Adapt — remix, transform, and build upon the material
+
+**Under these terms:**
+
+- Attribution — Give appropriate credit
+- ShareAlike — Distribute adaptations under the same license
 
 ## Credits
 
@@ -181,3 +191,5 @@ The Lonelog notation system is © 2025-2026 Roberto Bisceglie, licensed under CC
 ---
 
 *Happy solo adventuring!*
+
+
