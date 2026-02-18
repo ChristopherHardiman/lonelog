@@ -89,17 +89,40 @@ export class NotationCommands {
 		}
 	}
 
-	static insertEventClock(editor: Editor, settings: LonelogSettings): void {
-		const text = "[E:Name 0/6]";
-		const cursor = editor.getCursor();
-		editor.replaceSelection(text);
+	static insertEventClock(app: App, editor: Editor, settings: LonelogSettings): void {
+		// Scan the live editor content for the last [E:Name y/X] tag
+		const content = editor.getValue();
+		const eventRegex = /\[E:([^\]]+?)\s+(\d+)\/(\d+)\]/g;
+		let lastMatch: RegExpMatchArray | null = null;
+		let match: RegExpMatchArray | null;
 
-		if (settings.smartCursorPositioning) {
-			// Select "Name" for easy replacement
-			editor.setSelection(
-				{ line: cursor.line, ch: cursor.ch + 3 },
-				{ line: cursor.line, ch: cursor.ch + 7 }
-			);
+		while ((match = eventRegex.exec(content)) !== null) {
+			lastMatch = match;
+		}
+
+		if (lastMatch && lastMatch[1] && lastMatch[2] && lastMatch[3]) {
+			const eventName = lastMatch[1];
+			const currentValue = parseInt(lastMatch[2]);
+			const maxValue = parseInt(lastMatch[3]);
+
+			if (currentValue < maxValue) {
+				// Still in progress — increment silently
+				editor.replaceSelection(`[E:${eventName} ${currentValue + 1}/${maxValue}]`);
+				return;
+			}
+			// Clock is complete — fall through to insert fresh template below
+		}
+		{
+			// No existing event — insert template and select "Name" for easy replacement
+			const text = "[E:Name 0/6]";
+			const cursor = editor.getCursor();
+			editor.replaceSelection(text);
+			if (settings.smartCursorPositioning) {
+				editor.setSelection(
+					{ line: cursor.line, ch: cursor.ch + 3 },
+					{ line: cursor.line, ch: cursor.ch + 7 }
+				);
+			}
 		}
 	}
 

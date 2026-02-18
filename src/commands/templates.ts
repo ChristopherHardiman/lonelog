@@ -98,24 +98,30 @@ export class EventClockModal extends Modal {
 	eventName: string = "";
 	maxValue: string = "6";
 	onSubmit: (eventName: string, maxValue: number) => void;
+	defaultName: string;
 
-	constructor(app: App, onSubmit: (eventName: string, maxValue: number) => void) {
+	constructor(app: App, onSubmit: (eventName: string, maxValue: number) => void, defaultName: string = "") {
 		super(app);
 		this.onSubmit = onSubmit;
+		this.defaultName = defaultName;
+		this.eventName = defaultName;
 	}
 
 	onOpen() {
 		const { contentEl } = this;
-		contentEl.createEl("h2", { text: "Event/Clock" });
+		contentEl.createEl("h2", { text: "New event/clock" });
 
 		new Setting(contentEl)
 			.setName("Event name")
 			.setDesc("Name of the event or clock to track")
 			.addText((text) => {
+				text.setValue(this.defaultName);
 				text.onChange((value) => {
 					this.eventName = value;
 				});
+				// Select all so user can immediately type a new name
 				text.inputEl.focus();
+				text.inputEl.select();
 			});
 
 		new Setting(contentEl)
