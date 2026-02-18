@@ -1,11 +1,15 @@
 import { Plugin } from "obsidian";
-import { DEFAULT_SETTINGS, LonelogSettings, LonelogSettingTab } from "./settings";
+import { 
+	DEFAULT_SETTINGS, LonelogSettings, LonelogSettingTab, applyHighlightColors, removeHighlightColors 
+} from "./settings";
 import { NotationCommands } from "./commands/notation";
 import { TemplateCommands } from "./commands/templates";
 import { LonelogAutoComplete } from "./utils/autocomplete";
 import { ProgressTrackerView, PROGRESS_VIEW_TYPE } from "./ui/progress-view";
 import { ThreadBrowserView, THREAD_VIEW_TYPE } from "./ui/thread-view";
 import { SceneNavigatorView, SCENE_NAV_TYPE } from "./ui/scene-nav";
+import { lonelogBlockProcessor } from "./utils/reading-highlighter";
+import { lonelogEditorPlugin } from "./utils/editor-highlighter";
 
 export default class LonelogPlugin extends Plugin {
 	settings: LonelogSettings;
@@ -15,6 +19,14 @@ export default class LonelogPlugin extends Plugin {
 		console.log("Loading Lonelog plugin");
 
 		await this.loadSettings();
+
+		this.registerMarkdownCodeBlockProcessor(
+			"lonelog",
+			lonelogBlockProcessor
+		);
+		applyHighlightColors(this.settings);
+        // Add editor syntax highlighting.
+		this.registerEditorExtension(lonelogEditorPlugin);
 
 		// Register views
 		this.registerView(
@@ -44,9 +56,11 @@ export default class LonelogPlugin extends Plugin {
 
 		// Add settings tab
 		this.addSettingTab(new LonelogSettingTab(this.app, this));
+
 	}
 
 	onunload() {
+		removeHighlightColors();
 		console.log("Unloading Lonelog plugin");
 	}
 
