@@ -55,15 +55,11 @@ export function tokenizeLine(lineText: string): Token[] {
 
 	// Check for line-start token
 	let lineType: TokenType | null = null;
-	let lineStartTokenEnd = 0;
 
 	for (const { pattern, type } of LINE_START_PATTERNS) {
 		const match = trimmed.match(pattern);
 		if (match) {
 			lineType = type;
-			// Find where the token actually appears in the original line
-			const offset = lineText.indexOf(match[0]);
-			lineStartTokenEnd = offset + match[0].length;
 			break;
 		}
 	}

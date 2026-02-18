@@ -78,6 +78,11 @@ If your plugin does not need CSS, delete this file.
 	border-radius: 3px;
 }
 
+.lonelog-color-input {
+	width: 180px;
+	font-family: var(--font-monospace);
+}
+
 /* Common Panel Styles */
 
 .lonelog-empty-state {

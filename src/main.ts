@@ -16,7 +16,7 @@ export default class LonelogPlugin extends Plugin {
 	autoComplete: LonelogAutoComplete;
 
 	async onload() {
-		console.log("Loading Lonelog plugin");
+		console.debug("Loading Lonelog plugin");
 
 		await this.loadSettings();
 
@@ -68,14 +68,14 @@ export default class LonelogPlugin extends Plugin {
 
 	onunload() {
 		removeHighlightColors();
-		console.log("Unloading Lonelog plugin");
+		console.debug("Unloading Lonelog plugin");
 	}
 
 	async loadSettings() {
 		this.settings = Object.assign(
 			{},
 			DEFAULT_SETTINGS,
-			await this.loadData()
+			await this.loadData() as Partial<LonelogSettings>
 		);
 	}
 
@@ -201,7 +201,7 @@ export default class LonelogPlugin extends Plugin {
 
 		this.addCommand({
 			id: "insert-reference",
-			name: "Insert reference tag (#N:)",
+			name: "Insert reference tag",
 			editorCallback: (editor) => {
 				NotationCommands.insertReference(editor, this.settings);
 			},
@@ -247,25 +247,25 @@ export default class LonelogPlugin extends Plugin {
 		// Panel commands
 		this.addCommand({
 			id: "open-progress-tracker",
-			name: "Open Progress Tracker",
+			name: "Open progress tracker",
 			callback: () => {
-				this.activateView(PROGRESS_VIEW_TYPE);
+				void this.activateView(PROGRESS_VIEW_TYPE);
 			},
 		});
 
 		this.addCommand({
 			id: "open-thread-browser",
-			name: "Open Thread Browser",
+			name: "Open thread browser",
 			callback: () => {
-				this.activateView(THREAD_VIEW_TYPE);
+				void this.activateView(THREAD_VIEW_TYPE);
 			},
 		});
 
 		this.addCommand({
 			id: "open-scene-navigator",
-			name: "Open Scene Navigator",
+			name: "Open scene navigator",
 			callback: () => {
-				this.activateView(SCENE_NAV_TYPE);
+				void this.activateView(SCENE_NAV_TYPE);
 			},
 		});
 	}

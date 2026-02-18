@@ -28,7 +28,7 @@ export class ThreadBrowserView extends ItemView {
 	}
 
 	getDisplayText(): string {
-		return "Lonelog Threads";
+		return "Lonelog threads";
 	}
 
 	getIcon(): string {
@@ -45,7 +45,7 @@ export class ThreadBrowserView extends ItemView {
 		// Listen for active file changes
 		this.registerEvent(
 			this.app.workspace.on("active-leaf-change", () => {
-				this.refresh();
+				void this.refresh();
 			})
 		);
 
@@ -53,12 +53,12 @@ export class ThreadBrowserView extends ItemView {
 		this.registerEvent(
 			this.app.vault.on("modify", (file) => {
 				if (file === this.currentFile) {
-					this.refresh();
+					void this.refresh();
 				}
 			})
 		);
 
-		this.refresh();
+		void this.refresh();
 	}
 
 	async refresh(): Promise<void> {
@@ -87,7 +87,7 @@ export class ThreadBrowserView extends ItemView {
 		const header = container.createEl("div", {
 			cls: "lonelog-thread-header",
 		});
-		header.createEl("h4", { text: "Story Elements" });
+		header.createEl("h4", { text: "Story elements" });
 
 		const totalCount =
 			this.parsedElements.npcs.size +
@@ -141,7 +141,7 @@ export class ThreadBrowserView extends ItemView {
 		const sectionHeader = section.createEl("div", {
 			cls: "lonelog-thread-section-header",
 		});
-		sectionHeader.createEl("h5", { text: "Player Characters" });
+		sectionHeader.createEl("h5", { text: "Player characters" });
 		sectionHeader.createEl("span", {
 			text: `${pcs.size}`,
 			cls: "lonelog-section-count",
@@ -268,7 +268,7 @@ export class ThreadBrowserView extends ItemView {
 			}
 		});
 
-		const mentionCount = nameRow.createEl("span", {
+		nameRow.createEl("span", {
 			text: `×${mentions.length}`,
 			cls: "lonelog-mention-count",
 		});
@@ -321,7 +321,7 @@ export class ThreadBrowserView extends ItemView {
 			}
 		});
 
-		const stateEl = nameRow.createEl("span", {
+		nameRow.createEl("span", {
 			text: state,
 			cls: `lonelog-thread-state lonelog-thread-state-${state.toLowerCase()}`,
 		});
@@ -347,7 +347,7 @@ export class ThreadBrowserView extends ItemView {
 		if (!this.currentFile) return;
 
 		const leaf = this.app.workspace.getLeaf(false);
-		leaf.openFile(this.currentFile).then(() => {
+		void leaf.openFile(this.currentFile).then(() => {
 			const editor = this.app.workspace.activeEditor?.editor;
 			if (editor) {
 				editor.setCursor({ line, ch: 0 });

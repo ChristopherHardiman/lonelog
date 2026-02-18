@@ -24,10 +24,10 @@ export class CampaignHeaderModal extends Modal {
 
 	onOpen() {
 		const { contentEl } = this;
-		contentEl.createEl("h2", { text: "New Campaign Header" });
+		contentEl.createEl("h2", { text: "New campaign header" });
 
 		new Setting(contentEl)
-			.setName("Campaign Title")
+			.setName("Campaign title")
 			.addText((text) => {
 				text.onChange((value) => {
 					this.title = value;
@@ -54,7 +54,7 @@ export class CampaignHeaderModal extends Modal {
 			);
 
 		new Setting(contentEl)
-			.setName("Player Name")
+			.setName("Player name")
 			.addText((text) =>
 				text.onChange((value) => {
 					this.player = value;
@@ -105,7 +105,7 @@ export class SceneContextModal extends Modal {
 
 	onOpen() {
 		const { contentEl } = this;
-		contentEl.createEl("h2", { text: "Scene Context" });
+		contentEl.createEl("h2", { text: "Scene context" });
 
 		new Setting(contentEl)
 			.setName("Context")

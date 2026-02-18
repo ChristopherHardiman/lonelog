@@ -34,7 +34,7 @@ export class SceneNavigatorView extends ItemView {
 	}
 
 	getDisplayText(): string {
-		return "Lonelog Scenes";
+		return "Lonelog scenes";
 	}
 
 	getIcon(): string {
@@ -51,7 +51,7 @@ export class SceneNavigatorView extends ItemView {
 		// Listen for active file changes
 		this.registerEvent(
 			this.app.workspace.on("active-leaf-change", () => {
-				this.refresh();
+				void this.refresh();
 			})
 		);
 
@@ -59,12 +59,12 @@ export class SceneNavigatorView extends ItemView {
 		this.registerEvent(
 			this.app.vault.on("modify", (file) => {
 				if (file === this.currentFile) {
-					this.refresh();
+					void this.refresh();
 				}
 			})
 		);
 
-		this.refresh();
+		void this.refresh();
 	}
 
 	async refresh(): Promise<void> {
@@ -93,7 +93,7 @@ export class SceneNavigatorView extends ItemView {
 		const header = container.createEl("div", {
 			cls: "lonelog-scene-header",
 		});
-		header.createEl("h4", { text: "Scene Navigator" });
+		header.createEl("h4", { text: "Scene navigator" });
 
 		const totalScenes = this.sessions.reduce(
 			(sum, session) => sum + session.scenes.length,
@@ -267,7 +267,7 @@ export class SceneNavigatorView extends ItemView {
 		if (!this.currentFile) return;
 
 		const leaf = this.app.workspace.getLeaf(false);
-		leaf.openFile(this.currentFile).then(() => {
+		void leaf.openFile(this.currentFile).then(() => {
 			const editor = this.app.workspace.activeEditor?.editor;
 			if (editor) {
 				editor.setCursor({ line, ch: 0 });

@@ -50,29 +50,24 @@ export const DEFAULT_SETTINGS: LonelogSettings = {
 	colorTag:         "#c2410c",  // orange
 };
 
-/** Injects (or updates) a <style> tag that sets the Lonelog CSS variables. */
+/** Sets Lonelog CSS custom properties on document.body */
 export function applyHighlightColors(settings: LonelogSettings): void {
-	const ID = "lonelog-highlight-vars";
-	let el = document.getElementById(ID) as HTMLStyleElement | null;
-	if (!el) {
-		el = document.createElement("style");
-		el.id = ID;
-		document.head.appendChild(el);
-	}
-	el.textContent = `
-:root {
-  --ll-action-color:      ${settings.colorAction};
-  --ll-question-color:    ${settings.colorQuestion};
-  --ll-dice-color:        ${settings.colorDice};
-  --ll-consequence-color: ${settings.colorConsequence};
-  --ll-result-color:      ${settings.colorResult};
-  --ll-tag-color:         ${settings.colorTag};
-}`.trim();
+	document.body.style.setProperty("--ll-action-color", settings.colorAction);
+	document.body.style.setProperty("--ll-question-color", settings.colorQuestion);
+	document.body.style.setProperty("--ll-dice-color", settings.colorDice);
+	document.body.style.setProperty("--ll-consequence-color", settings.colorConsequence);
+	document.body.style.setProperty("--ll-result-color", settings.colorResult);
+	document.body.style.setProperty("--ll-tag-color", settings.colorTag);
 }
 
-/** Removes the injected <style> tag (call from onunload). */
+/** Removes the injected CSS custom properties (call from onunload). */
 export function removeHighlightColors(): void {
-	document.getElementById("lonelog-highlight-vars")?.remove();
+	document.body.style.removeProperty("--ll-action-color");
+	document.body.style.removeProperty("--ll-question-color");
+	document.body.style.removeProperty("--ll-dice-color");
+	document.body.style.removeProperty("--ll-consequence-color");
+	document.body.style.removeProperty("--ll-result-color");
+	document.body.style.removeProperty("--ll-tag-color");
 }
 
 // ---------------------------------------------------------------------------
@@ -114,10 +109,10 @@ export class LonelogSettingTab extends PluginSettingTab {
 		const { containerEl } = this;
 		containerEl.empty();
 
-		containerEl.createEl("h2", { text: "Lonelog Notation Settings" });
+		new Setting(containerEl).setName("Lonelog notation settings").setHeading();
 
 		// ── Core Notation ──────────────────────────────────────────────────
-		containerEl.createEl("h3", { text: "Core notation" });
+		new Setting(containerEl).setName("Core notation").setHeading();
 
 		new Setting(containerEl)
 			.setName("Insert space after symbols")
@@ -144,7 +139,7 @@ export class LonelogSettingTab extends PluginSettingTab {
 			);
 
 		// ── Templates ──────────────────────────────────────────────────────
-		containerEl.createEl("h3", { text: "Templates" });
+		new Setting(containerEl).setName("Templates").setHeading();
 
 		new Setting(containerEl)
 			.setName("Auto-increment scene numbers")
@@ -171,11 +166,11 @@ export class LonelogSettingTab extends PluginSettingTab {
 			);
 
 		// ── Highlighting ───────────────────────────────────────────────────
-		containerEl.createEl("h3", { text: "Syntax highlighting" });
+		new Setting(containerEl).setName("Syntax highlighting").setHeading();
 
 		new Setting(containerEl)
 			.setName("Enable editor highlighting")
-			.setDesc("Highlight lonelog notation while editing code blocks")
+			.setDesc("Highlight Lonelog notation while editing code blocks")
 			.addToggle((toggle) =>
 				toggle
 					.setValue(this.plugin.settings.enableEditorHighlighting)
@@ -204,7 +199,7 @@ export class LonelogSettingTab extends PluginSettingTab {
 					})
 			);
 
-		containerEl.createEl("h4", { text: "Highlighting colors" });
+		new Setting(containerEl).setName("Highlighting colors").setHeading();
 		containerEl.createEl("p", {
 			text: "Any valid CSS color value is accepted: hex (#3b82f6), rgba(59,130,246,0.15), or a CSS variable (var(--color-accent)).",
 			cls: "setting-item-description",
@@ -247,16 +242,16 @@ export class LonelogSettingTab extends PluginSettingTab {
 						colorPicker.value = normalized;
 					}
 				});
-			text.inputEl.style.width = "180px";
-			text.inputEl.style.fontFamily = "var(--font-monospace)";
+			text.inputEl.addClass("lonelog-color-input");
 
 			// Sync color picker to text input
-			colorPicker.addEventListener("input", async () => {
+			colorPicker.addEventListener("input", () => {
 				const hexValue = colorPicker.value;
 				text.setValue(hexValue);
 				this.plugin.settings[def.key] = hexValue;
-				await this.plugin.saveSettings();
-				applyHighlightColors(this.plugin.settings);
+				void this.plugin.saveSettings().then(() => {
+					applyHighlightColors(this.plugin.settings);
+				});
 			});
 		});
 

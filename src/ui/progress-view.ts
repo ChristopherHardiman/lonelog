@@ -21,7 +21,7 @@ export class ProgressTrackerView extends ItemView {
 	}
 
 	getDisplayText(): string {
-		return "Lonelog Progress";
+		return "Lonelog progress";
 	}
 
 	getIcon(): string {
@@ -38,7 +38,7 @@ export class ProgressTrackerView extends ItemView {
 		// Listen for active file changes
 		this.registerEvent(
 			this.app.workspace.on("active-leaf-change", () => {
-				this.refresh();
+				void this.refresh();
 			})
 		);
 
@@ -46,7 +46,7 @@ export class ProgressTrackerView extends ItemView {
 		this.registerEvent(
 			this.app.vault.on("modify", (file) => {
 				if (file === this.currentFile) {
-					this.refresh();
+					void this.refresh();
 				}
 			})
 		);
@@ -81,7 +81,7 @@ export class ProgressTrackerView extends ItemView {
 		const header = container.createEl("div", {
 			cls: "lonelog-progress-header",
 		});
-		header.createEl("h4", { text: "Progress Tracker" });
+		header.createEl("h4", { text: "Progress tracker" });
 		header.createEl("span", {
 			text: `${this.progressElements.length} items`,
 			cls: "lonelog-count",
@@ -160,7 +160,7 @@ export class ProgressTrackerView extends ItemView {
 			cls: "lonelog-progress-btn lonelog-progress-decrement",
 		});
 		decrementBtn.addEventListener("click", () => {
-			this.updateProgress(item, -1);
+			void this.updateProgress(item, -1);
 		});
 
 		// Progress display
@@ -192,7 +192,7 @@ export class ProgressTrackerView extends ItemView {
 			cls: "lonelog-progress-btn lonelog-progress-increment",
 		});
 		incrementBtn.addEventListener("click", () => {
-			this.updateProgress(item, 1);
+			void this.updateProgress(item, 1);
 		});
 	}
 
@@ -200,7 +200,7 @@ export class ProgressTrackerView extends ItemView {
 		if (!this.currentFile) return;
 
 		const leaf = this.app.workspace.getLeaf(false);
-		leaf.openFile(this.currentFile).then(() => {
+		void leaf.openFile(this.currentFile).then(() => {
 			const editor = this.app.workspace.activeEditor?.editor;
 			if (editor) {
 				editor.setCursor({ line, ch: 0 });
@@ -252,7 +252,7 @@ export class ProgressTrackerView extends ItemView {
 			await this.app.vault.modify(this.currentFile, lines.join("\n"));
 
 			// Refresh view
-			this.refresh();
+			void this.refresh();
 		}
 	}
 

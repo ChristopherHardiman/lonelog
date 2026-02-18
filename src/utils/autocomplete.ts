@@ -4,6 +4,7 @@
  */
 
 import {
+	App,
 	Editor,
 	EditorPosition,
 	EditorSuggest,
@@ -24,7 +25,7 @@ export class LonelogAutoComplete extends EditorSuggest<TagSuggestion> {
 	private parsedElements: ParsedElements | null = null;
 	private lastContent: string = "";
 
-	constructor(app: any) {
+	constructor(app: App) {
 		super(app);
 	}
 
@@ -45,7 +46,6 @@ export class LonelogAutoComplete extends EditorSuggest<TagSuggestion> {
 		// NPC tag: [N: or [#N:
 		const npcMatch = beforeCursor.match(/\[(#)?N:(\w*)$/);
 		if (npcMatch) {
-			const isReference = !!npcMatch[1];
 			const query = npcMatch[2] || "";
 			const start = cursor.ch - query.length;
 

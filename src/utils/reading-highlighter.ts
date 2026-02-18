@@ -35,7 +35,7 @@ export function lonelogBlockProcessor(
 			if (token.type === "text") {
 				lineEl.appendChild(document.createTextNode(token.text));
 			} else {
-				const span = lineEl.createEl("span", {
+				lineEl.createEl("span", {
 					cls: getTokenClass(token.type, "ll"),
 					text: token.text,
 				});

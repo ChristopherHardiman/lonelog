@@ -94,7 +94,6 @@ export class NotationParser {
 	private static parseNPCs(content: string): Map<string, ParsedNPC> {
 		const npcRegex = /\[N:([^\]|]+)(\|([^\]]*))?\]/g;
 		const npcs = new Map<string, ParsedNPC>();
-		const lines = content.split("\n");
 
 		let match;
 		while ((match = npcRegex.exec(content)) !== null) {
