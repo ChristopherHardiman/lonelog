@@ -33,13 +33,13 @@ export const DEFAULT_SETTINGS: LonelogSettings = {
 	actionSequenceTemplate: "@ [action]\nd: [roll] -> [outcome]\n=> [consequence]",
 	oracleSequenceTemplate: "? [question]\n-> [answer]\n=> [consequence]",
 
-	// Match the values currently hardcoded in highlighter.css
-	colorAction:      "rgba(59, 130, 246, 0.15)",
-	colorQuestion:    "rgba(139, 92, 246, 0.15)",
-	colorDice:        "rgba(34, 197, 94, 0.15)",
-	colorConsequence: "rgba(239, 68, 68, 0.15)",
-	colorResult:      "#ca8a04",
-	colorTag:         "#c2410c",
+	// Match the values currently used in highlighter.css
+	colorAction:      "#3b82f6",  // blue
+	colorQuestion:    "#8b5cf6",  // purple
+	colorDice:        "#22c55e",  // green
+	colorConsequence: "#ef4444",  // red
+	colorResult:      "#ca8a04",  // yellow
+	colorTag:         "#c2410c",  // orange
 };
 
 /** Injects (or updates) a <style> tag that sets the Lonelog CSS variables. */
@@ -53,12 +53,12 @@ export function applyHighlightColors(settings: LonelogSettings): void {
 	}
 	el.textContent = `
 :root {
-  --ll-action-bg:      ${settings.colorAction};
-  --ll-question-bg:    ${settings.colorQuestion};
-  --ll-dice-bg:        ${settings.colorDice};
-  --ll-consequence-bg: ${settings.colorConsequence};
-  --ll-result-color:   ${settings.colorResult};
-  --ll-tag-color:      ${settings.colorTag};
+  --ll-action-color:      ${settings.colorAction};
+  --ll-question-color:    ${settings.colorQuestion};
+  --ll-dice-color:        ${settings.colorDice};
+  --ll-consequence-color: ${settings.colorConsequence};
+  --ll-result-color:      ${settings.colorResult};
+  --ll-tag-color:         ${settings.colorTag};
 }`.trim();
 }
 
@@ -86,10 +86,10 @@ interface ColorDef {
 }
 
 const COLOR_DEFS: ColorDef[] = [
-	{ key: "colorAction",      label: "Action (@)",         desc: "Background color for @ lines" },
-	{ key: "colorQuestion",    label: "Question (?)",        desc: "Background color for ? lines" },
-	{ key: "colorDice",        label: "Dice roll (d:)",      desc: "Background color for d: lines" },
-	{ key: "colorConsequence", label: "Consequence (=>)",    desc: "Background color for => lines" },
+	{ key: "colorAction",      label: "Action (@)",         desc: "Text color for @ lines" },
+	{ key: "colorQuestion",    label: "Question (?)",        desc: "Text color for ? lines" },
+	{ key: "colorDice",        label: "Dice roll (d:)",      desc: "Text color for d: lines" },
+	{ key: "colorConsequence", label: "Consequence (=>)",    desc: "Text color for => lines" },
 	{ key: "colorResult",      label: "Result arrow (->)",   desc: "Text color for -> tokens" },
 	{ key: "colorTag",         label: "Tags ([N:…] etc.)",   desc: "Text color for bracket tag tokens" },
 ];

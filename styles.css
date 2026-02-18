@@ -433,7 +433,10 @@ If your plugin does not need CSS, delete this file.
 }
 
 /* ============================================================
-   Lonelog Syntax Highlighting — reading mode code block
+   Lonelog Syntax Highlighting — Reading Mode
+   Colors are driven by CSS custom properties injected by the
+   plugin settings (see applyHighlightColors() in settings.ts).
+   Fallback values here match DEFAULT_SETTINGS.
    ============================================================ */
 
 .ll-block {
@@ -452,29 +455,30 @@ If your plugin does not need CSS, delete this file.
 	display: block;
 	padding: 0 0.25em;
 	border-radius: 3px;
-	white-space: pre-wrap;
-    word-break: break-word;
+	white-space: pre;
 }
 
-/* ── Line-level highlights ─────────────────────────────── */
+/* ── Token highlighting (text colors) ─────────────────────── */
 
-.ll-line.ll-action {
-	background: var(--ll-action-bg, rgba(59, 130, 246, 0.15));
+.ll-action {
+	color: var(--ll-action-color, #3b82f6);
+	font-weight: 600;
 }
 
-.ll-line.ll-question {
-	background: var(--ll-question-bg, rgba(139, 92, 246, 0.15));
+.ll-question {
+	color: var(--ll-question-color, #8b5cf6);
+	font-weight: 600;
 }
 
-.ll-line.ll-dice {
-	background: var(--ll-dice-bg, rgba(34, 197, 94, 0.15));
+.ll-dice {
+	color: var(--ll-dice-color, #22c55e);
+	font-weight: 600;
 }
 
-.ll-line.ll-consequence {
-	background: var(--ll-consequence-bg, rgba(239, 68, 68, 0.15));
+.ll-consequence {
+	color: var(--ll-consequence-color, #ef4444);
+	font-weight: 600;
 }
-
-/* ── Token-level highlights ────────────────────────────── */
 
 .ll-result {
 	color: var(--ll-result-color, #ca8a04);
@@ -484,4 +488,76 @@ If your plugin does not need CSS, delete this file.
 .ll-tag {
 	color: var(--ll-tag-color, #c2410c);
 	font-weight: 500;
+}
+
+/* ── Dark theme adjustments ───────────────────────────────── */
+
+.theme-dark .ll-action {
+	color: var(--ll-action-color, #60a5fa);
+}
+
+.theme-dark .ll-question {
+	color: var(--ll-question-color, #a78bfa);
+}
+
+.theme-dark .ll-dice {
+	color: var(--ll-dice-color, #4ade80);
+}
+
+.theme-dark .ll-consequence {
+	color: var(--ll-consequence-color, #f87171);
+}
+/* ============================================================
+   Lonelog Editor Highlighting (live preview)
+   Token-level highlighting only (not line backgrounds).
+   Uses the same CSS variables set by applyHighlightColors().
+   ============================================================ */
+
+/* Token symbols at line start */
+.ll-ed-action {
+	color: #3b82f6;           /* blue-500 */
+	font-weight: 600;
+}
+
+.ll-ed-question {
+	color: #8b5cf6;           /* violet-500 */
+	font-weight: 600;
+}
+
+.ll-ed-dice {
+	color: #22c55e;           /* green-500 */
+	font-weight: 600;
+}
+
+.ll-ed-consequence {
+	color: #ef4444;           /* red-500 */
+	font-weight: 600;
+}
+
+/* Result arrow and bracket tags */
+.ll-ed-result {
+	color: var(--ll-result-color, #ca8a04);
+	font-weight: 600;
+}
+
+.ll-ed-tag {
+	color: var(--ll-tag-color, #c2410c);
+	font-weight: 500;
+}
+
+/* Dark theme adjustments */
+.theme-dark .ll-ed-action {
+	color: #60a5fa;           /* blue-400 */
+}
+
+.theme-dark .ll-ed-question {
+	color: #a78bfa;           /* violet-400 */
+}
+
+.theme-dark .ll-ed-dice {
+	color: #4ade80;           /* green-400 */
+}
+
+.theme-dark .ll-ed-consequence {
+	color: #f87171;           /* red-400 */
 }

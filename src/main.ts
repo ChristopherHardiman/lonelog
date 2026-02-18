@@ -8,7 +8,8 @@ import { LonelogAutoComplete } from "./utils/autocomplete";
 import { ProgressTrackerView, PROGRESS_VIEW_TYPE } from "./ui/progress-view";
 import { ThreadBrowserView, THREAD_VIEW_TYPE } from "./ui/thread-view";
 import { SceneNavigatorView, SCENE_NAV_TYPE } from "./ui/scene-nav";
-import { lonelogBlockProcessor } from "./utils/highlighter";
+import { lonelogBlockProcessor } from "./utils/reading-highlighter";
+import { lonelogEditorPlugin } from "./utils/editor-highlighter";
 
 export default class LonelogPlugin extends Plugin {
 	settings: LonelogSettings;
@@ -24,6 +25,8 @@ export default class LonelogPlugin extends Plugin {
 			lonelogBlockProcessor
 		);
 		applyHighlightColors(this.settings);
+        // Add editor syntax highlighting.
+		this.registerEditorExtension(lonelogEditorPlugin);
 
 		// Register views
 		this.registerView(
@@ -53,6 +56,7 @@ export default class LonelogPlugin extends Plugin {
 
 		// Add settings tab
 		this.addSettingTab(new LonelogSettingTab(this.app, this));
+
 	}
 
 	onunload() {
