@@ -163,7 +163,7 @@ export default class LonelogPlugin extends Plugin {
 			id: "insert-event-clock",
 			name: "Insert event/clock",
 			editorCallback: (editor) => {
-				NotationCommands.insertEventClock(editor, this.settings);
+				NotationCommands.insertEventClock(this.app, editor, this.settings);
 			},
 		});
 
@@ -171,7 +171,7 @@ export default class LonelogPlugin extends Plugin {
 			id: "insert-track",
 			name: "Insert track",
 			editorCallback: (editor) => {
-				NotationCommands.insertTrack(editor, this.settings);
+				NotationCommands.insertTrack(this.app, editor, this.settings);
 			},
 		});
 

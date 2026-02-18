@@ -93,6 +93,132 @@ export class CampaignHeaderModal extends Modal {
 	}
 }
 
+// Event/Clock Modal
+export class EventClockModal extends Modal {
+	eventName: string = "";
+	maxValue: string = "6";
+	onSubmit: (eventName: string, maxValue: number) => void;
+
+	constructor(app: App, onSubmit: (eventName: string, maxValue: number) => void) {
+		super(app);
+		this.onSubmit = onSubmit;
+	}
+
+	onOpen() {
+		const { contentEl } = this;
+		contentEl.createEl("h2", { text: "Event/Clock" });
+
+		new Setting(contentEl)
+			.setName("Event name")
+			.setDesc("Name of the event or clock to track")
+			.addText((text) => {
+				text.onChange((value) => {
+					this.eventName = value;
+				});
+				text.inputEl.focus();
+			});
+
+		new Setting(contentEl)
+			.setName("Maximum value")
+			.setDesc("Total number of steps for this event (default: 6)")
+			.addText((text) => {
+				text.setValue("6");
+				text.onChange((value) => {
+					this.maxValue = value;
+				});
+				// Submit on Enter key
+				text.inputEl.addEventListener("keydown", (evt) => {
+					if (evt.key === "Enter") {
+						this.submit();
+					}
+				});
+			});
+
+		new Setting(contentEl).addButton((btn) =>
+			btn
+				.setButtonText("Insert")
+				.setCta()
+				.onClick(() => {
+					this.submit();
+				})
+		);
+	}
+
+	submit() {
+		const max = parseInt(this.maxValue) || 6;
+		this.close();
+		this.onSubmit(this.eventName, max);
+	}
+
+	onClose() {
+		const { contentEl } = this;
+		contentEl.empty();
+	}
+}
+
+// Track Modal
+export class TrackModal extends Modal {
+	trackName: string = "";
+	maxValue: string = "6";
+	onSubmit: (trackName: string, maxValue: number) => void;
+
+	constructor(app: App, onSubmit: (trackName: string, maxValue: number) => void) {
+		super(app);
+		this.onSubmit = onSubmit;
+	}
+
+	onOpen() {
+		const { contentEl } = this;
+		contentEl.createEl("h2", { text: "Track" });
+
+		new Setting(contentEl)
+			.setName("Track name")
+			.setDesc("Name of the track to monitor")
+			.addText((text) => {
+				text.onChange((value) => {
+					this.trackName = value;
+				});
+				text.inputEl.focus();
+			});
+
+		new Setting(contentEl)
+			.setName("Maximum value")
+			.setDesc("Total number of steps for this track (default: 6)")
+			.addText((text) => {
+				text.setValue("6");
+				text.onChange((value) => {
+					this.maxValue = value;
+				});
+				// Submit on Enter key
+				text.inputEl.addEventListener("keydown", (evt) => {
+					if (evt.key === "Enter") {
+						this.submit();
+					}
+				});
+			});
+
+		new Setting(contentEl).addButton((btn) =>
+			btn
+				.setButtonText("Insert")
+				.setCta()
+				.onClick(() => {
+					this.submit();
+				})
+		);
+	}
+
+	submit() {
+		const max = parseInt(this.maxValue) || 6;
+		this.close();
+		this.onSubmit(this.trackName, max);
+	}
+
+	onClose() {
+		const { contentEl } = this;
+		contentEl.empty();
+	}
+}
+
 // Scene Context Modal
 export class SceneContextModal extends Modal {
 	context: string = "";
