@@ -4,7 +4,7 @@ Streamline your solo TTRPG journaling with quick shortcuts for [Lonelog notation
 
 ## Features
 
-### Syntax Highlighting (New in 1.0.0 ✓)
+### Syntax Highlighting
 
 Beautiful, configurable syntax highlighting for Lonelog notation in both editor and reading modes:
 
@@ -20,7 +20,7 @@ Beautiful, configurable syntax highlighting for Lonelog notation in both editor 
 - **Flexible Input** - Use color picker, hex values, color names, or CSS variables
 - **Toggle Controls** - Enable/disable highlighting independently for editor and reading modes
 
-### Phase 1: Core Notation (Implemented ✓)
+### Notation Commands
 
 Quick insertion commands for all Lonelog notation elements:
 
@@ -44,6 +44,25 @@ Quick insertion commands for all Lonelog notation elements:
 - **PC Tag** - `[PC:Name|]`
 - **Timer** - `[Timer:Name 0]`
 - **Reference Tag** - `[#N:Name]`
+
+### Templates & Structure
+
+- **Campaign Header** - Insert metadata for your campaign
+- **Session Header** - Create session headers with auto-numbering
+- **Scene Markers** - Insert scene markers with auto-incrementing numbers and context
+- **Code Block Wrapper** - Toggle `lonelog` code block wrapping
+
+### Visual Panels
+
+- **Progress Tracker** - View and update all clocks, tracks, and timers in a side panel
+- **Thread Browser** - Browse all NPCs, locations, player characters, and threads
+- **Scene Navigator** - Navigate sessions and scenes with a hierarchical view
+
+### Smart Features
+
+- **Auto-completion** - Tag suggestions based on previously mentioned NPCs, locations, threads, and PCs
+- **Smart Cursor Positioning** - Automatically positions cursor for optimal editing
+- **Auto-increment** - Automatically detects and increments scene numbers
 
 ## Installation
 
@@ -147,37 +166,6 @@ Lonelog is a standardized notation system for logging solo TTRPG sessions. It se
 
 Learn more: See [lonelog.md](lonelog.md) for the full specification
 
-## Roadmap
-
-### Phase 2: Templates & Structure (Implemented ✓)
-- ✅ Session header with auto-numbering
-- ✅ Scene marker with auto-numbering
-- ✅ Code block wrapper
-- Campaign header insertion
-
-### Phase 3: Intelligence Layer (In Progress)
-- Tag auto-completion from previous mentions
-- Reference suggestions
-- Notation parsing
-
-### Phase 4: Visual Tools (Future)
-- Progress tracker panel
-- Thread/element browser
-- Scene navigation
-
-## Development
-
-```bash
-# Install dependencies
-npm install
-
-# Development build (watch mode)
-npm run dev
-
-# Production build
-npm run build
-```
-
 ## License
 
 This plugin is licensed under [0-BSD License](LICENSE).
@@ -186,7 +174,7 @@ The Lonelog notation system is © 2025-2026 Roberto Bisceglie, licensed under CC
 
 ## Credits
 
-- **Plugin Author**: Chris Hardiman
+- **Plugin Author**: Christopher Hardiman
 - **Lonelog System**: Roberto Bisceglie
 - **Inspired by**: The Valley Standard notation system
 
