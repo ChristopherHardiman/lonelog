@@ -1,6 +1,6 @@
 import { App, Editor } from "obsidian";
 import { LonelogSettings } from "../settings";
-import { EventClockModal, TrackModal } from "./templates";
+import { TrackModal } from "./templates";
 
 export class NotationCommands {
 	// Single symbol insertions
@@ -181,7 +181,6 @@ export class NotationCommands {
 					text = `[Track:${trackName} 0/${maxValue}]`;
 				}
 
-				const cursor = editor.getCursor();
 				editor.replaceSelection(text);
 			});
 		});

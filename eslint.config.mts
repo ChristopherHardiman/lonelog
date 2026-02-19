@@ -22,6 +22,19 @@ export default tseslint.config(
 		},
 	},
 	...obsidianmd.configs.recommended,
+	{
+		plugins: {
+			obsidianmd,
+		},
+		rules: {
+			// Allow game-specific acronyms/proper nouns (NPC, PC, HP, GME, Lonelog, etc.)
+			"obsidianmd/ui/sentence-case": ["error", {
+				enforceCamelCaseLower: true,
+				ignoreWords: ["Lonelog", "NPC", "PC", "HP", "GME", "Ironsworn", "Mythic", "Loner"],
+				ignoreRegex: ["^NPCs?$"],
+			}],
+		},
+	},
 	globalIgnores([
 		"node_modules",
 		"dist",

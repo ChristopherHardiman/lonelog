@@ -107,7 +107,7 @@ export class SceneNavigatorView extends ItemView {
 		// Check if empty
 		if (this.sessions.length === 0) {
 			container.createEl("div", {
-				text: "No sessions found. Use 'Insert session header' to create one.",
+				text: "No sessions found. Use 'insert session header' to create one.",
 				cls: "lonelog-empty-state",
 			});
 			return;

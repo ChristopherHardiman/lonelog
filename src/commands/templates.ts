@@ -37,7 +37,7 @@ export class CampaignHeaderModal extends Modal {
 
 		new Setting(contentEl)
 			.setName("Ruleset")
-			.setDesc("e.g., Ironsworn, Mythic GME, Loner")
+			.setDesc("E.g., Ironsworn, Mythic GME, Loner")
 			.addText((text) =>
 				text.onChange((value) => {
 					this.ruleset = value;
@@ -46,7 +46,7 @@ export class CampaignHeaderModal extends Modal {
 
 		new Setting(contentEl)
 			.setName("Genre")
-			.setDesc("e.g., Fantasy, Sci-fi, Horror")
+			.setDesc("E.g., fantasy, sci-fi, horror")
 			.addText((text) =>
 				text.onChange((value) => {
 					this.genre = value;
@@ -62,8 +62,8 @@ export class CampaignHeaderModal extends Modal {
 			);
 
 		new Setting(contentEl)
-			.setName("PC(s)")
-			.setDesc("e.g., Alex [PC:Alex|HP 8]")
+			.setName("Player characters")
+			.setDesc("E.g., alex [PC:alex|HP 8]")
 			.addText((text) =>
 				text.onChange((value) => {
 					this.pcs = value;
@@ -242,7 +242,7 @@ export class SceneContextModal extends Modal {
 		new Setting(contentEl)
 			.setName("Context")
 			.setDesc(
-				"e.g., 'Dark alley, midnight' or 'Lighthouse tower, dusk'"
+				"E.g., 'dark alley, midnight' or 'lighthouse tower, dusk'"
 			)
 			.addText((text) => {
 				text.onChange((value) => {

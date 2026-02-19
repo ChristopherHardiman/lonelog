@@ -109,14 +109,12 @@ export class LonelogSettingTab extends PluginSettingTab {
 		const { containerEl } = this;
 		containerEl.empty();
 
-		new Setting(containerEl).setName("Lonelog notation settings").setHeading();
-
 		// ── Core Notation ──────────────────────────────────────────────────
 		new Setting(containerEl).setName("Core notation").setHeading();
 
 		new Setting(containerEl)
 			.setName("Insert space after symbols")
-			.setDesc("Add a space after @ ? d: -> => for easier typing")
+			.setDesc("Add a space after @, ?, d:, ->, and => for easier typing")
 			.addToggle((toggle) =>
 				toggle
 					.setValue(this.plugin.settings.insertSpaceAfterSymbol)
@@ -180,7 +178,7 @@ export class LonelogSettingTab extends PluginSettingTab {
 						// Suggest reload for extension changes to take effect
 						if (!value) {
 							containerEl.createEl("div", {
-								text: "⚠️ Reload Obsidian for this change to take full effect",
+								text: "Reload Obsidian for this change to take full effect",
 								cls: "setting-item-description mod-warning",
 							});
 						}

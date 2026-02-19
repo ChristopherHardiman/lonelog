@@ -51,7 +51,7 @@ export class ProgressTrackerView extends ItemView {
 			})
 		);
 
-		this.refresh();
+		void this.refresh();
 	}
 
 	async refresh(): Promise<void> {

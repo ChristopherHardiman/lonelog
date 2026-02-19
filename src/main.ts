@@ -287,6 +287,6 @@ export default class LonelogPlugin extends Plugin {
 		}
 
 		// Reveal the leaf
-		workspace.revealLeaf(leaf);
+		void workspace.revealLeaf(leaf);
 	}
 }
