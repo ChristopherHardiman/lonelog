@@ -492,7 +492,8 @@ If your plugin does not need CSS, delete this file.
 	display: block;
 	padding: 0 0.25em;
 	border-radius: 3px;
-	white-space: pre;
+	white-space: pre-wrap;
+	word-break: break-word;
 }
 
 /* ── Token highlighting (text colors) ─────────────────────── */
