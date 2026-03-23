@@ -26,7 +26,7 @@ Quick insertion commands for all Lonelog notation elements:
 
 **Single-Symbol Commands:**
 - `@` - Insert action symbol
-- `?` - Insert question symbol  
+- `?` - Insert question symbol
 - `d:` - Insert dice roll symbol
 - `->` - Insert result symbol
 - `=>` - Insert consequence symbol
@@ -68,9 +68,14 @@ Quick insertion commands for all Lonelog notation elements:
 
 ### Manual Installation (Development)
 
-1. This plugin is in active development
-2. Make sure the plugin is in your vault's `.obsidian/plugins/lonelog/` directory
-3. Reload Obsidian
+1. This plugin is in active development and has no current build process
+  1. Run install 'npm' on your system with whatever package manager you have
+  2. Download the repository/release file
+  3. Navigate to the downloaded plugin directory
+  4. Run `npm build` and then `npm run install` to build the plugin
+  5. Delete the `src` folder
+2. Copy the plugin folder (i.e. `lonelog-1.0.0` or `lonelog-master`) to your vault's `.obsidian/plugins/lonelog/` directory
+3. Reload community plugins or restart Obsidian
 4. Enable "Lonelog" in Settings → Community Plugins
 
 ### From Community Plugins (Coming Soon)
