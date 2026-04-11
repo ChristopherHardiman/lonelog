@@ -497,52 +497,65 @@ If your plugin does not need CSS, delete this file.
 }
 
 /* ── Token highlighting (text colors) ─────────────────────── */
+/* Base rules cover spans in plain paragraphs (post-processor).
+   .ll-block-scoped rules have higher specificity to beat
+   Obsidian's  pre code span { color: var(--code-normal) }  rule. */
 
-.ll-action {
+.ll-action,
+.ll-block .ll-action {
 	color: var(--ll-action-color, #3b82f6);
 	font-weight: 600;
 }
 
-.ll-question {
+.ll-question,
+.ll-block .ll-question {
 	color: var(--ll-question-color, #8b5cf6);
 	font-weight: 600;
 }
 
-.ll-dice {
+.ll-dice,
+.ll-block .ll-dice {
 	color: var(--ll-dice-color, #22c55e);
 	font-weight: 600;
 }
 
-.ll-consequence {
+.ll-consequence,
+.ll-block .ll-consequence {
 	color: var(--ll-consequence-color, #ef4444);
 	font-weight: 600;
 }
 
-.ll-result {
+.ll-result,
+.ll-block .ll-result {
 	color: var(--ll-result-color, #ca8a04);
 	font-weight: 600;
 }
 
-.ll-tag {
+.ll-tag,
+.ll-block .ll-tag {
 	color: var(--ll-tag-color, #c2410c);
 	font-weight: 500;
 }
 
 /* ── Dark theme adjustments ───────────────────────────────── */
 
-.theme-dark .ll-action {
+.theme-dark .ll-action,
+.theme-dark .ll-block .ll-action {
 	color: var(--ll-action-color, #60a5fa);
 }
 
-.theme-dark .ll-question {
+.theme-dark .ll-question,
+.theme-dark .ll-block .ll-question {
 	color: var(--ll-question-color, #a78bfa);
 }
 
-.theme-dark .ll-dice {
+.theme-dark .ll-dice,
+.theme-dark .ll-block .ll-dice {
 	color: var(--ll-dice-color, #4ade80);
 }
 
-.theme-dark .ll-consequence {
+.theme-dark .ll-consequence,
+.theme-dark .ll-block .ll-consequence {
 	color: var(--ll-consequence-color, #f87171);
 }
 /* ============================================================

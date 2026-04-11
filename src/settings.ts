@@ -175,13 +175,6 @@ export class LonelogSettingTab extends PluginSettingTab {
 					.onChange(async (value) => {
 						this.plugin.settings.enableEditorHighlighting = value;
 						await this.plugin.saveSettings();
-						// Suggest reload for extension changes to take effect
-						if (!value) {
-							containerEl.createEl("div", {
-								text: "Reload Obsidian for this change to take full effect",
-								cls: "setting-item-description mod-warning",
-							});
-						}
 					})
 			);
 

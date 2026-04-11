@@ -8,8 +8,8 @@ import { LonelogAutoComplete } from "./utils/autocomplete";
 import { ProgressTrackerView, PROGRESS_VIEW_TYPE } from "./ui/progress-view";
 import { ThreadBrowserView, THREAD_VIEW_TYPE } from "./ui/thread-view";
 import { SceneNavigatorView, SCENE_NAV_TYPE } from "./ui/scene-nav";
-import { lonelogBlockProcessor } from "./utils/reading-highlighter";
-import { lonelogEditorPlugin } from "./utils/editor-highlighter";
+import { lonelogBlockProcessor, createBlockProcessor, lonelogPostProcessor } from "./utils/reading-highlighter";
+import { createEditorPlugin } from "./utils/editor-highlighter";
 
 export default class LonelogPlugin extends Plugin {
 	settings: LonelogSettings;
@@ -20,20 +20,21 @@ export default class LonelogPlugin extends Plugin {
 
 		await this.loadSettings();
 
-		// Register reading mode highlighting (if enabled)
-		if (this.settings.enableReadingHighlighting) {
-			this.registerMarkdownCodeBlockProcessor(
-				"lonelog",
-				lonelogBlockProcessor
-			);
-		}
+		// Register reading mode highlighting (always registered; toggle checked at runtime)
+		this.registerMarkdownCodeBlockProcessor(
+			"lonelog",
+			createBlockProcessor(() => this.settings.enableReadingHighlighting)
+		);
+		this.registerMarkdownPostProcessor((el, ctx) =>
+			lonelogPostProcessor(el, ctx, () => this.settings.enableReadingHighlighting)
+		);
 
 		applyHighlightColors(this.settings);
 
-		// Register editor syntax highlighting (if enabled)
-		if (this.settings.enableEditorHighlighting) {
-			this.registerEditorExtension(lonelogEditorPlugin);
-		}
+		// Register editor syntax highlighting (always registered; toggle checked at runtime)
+		this.registerEditorExtension(
+			createEditorPlugin(() => this.settings.enableEditorHighlighting)
+		);
 
 		// Register views
 		this.registerView(
